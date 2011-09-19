@@ -78,38 +78,6 @@ architecture Behavioral of image_controler is
 
   constant controler_delay : natural := 1;
 begin
---	process(clk,rst)
---	begin
---		if rst = '1' then
---			r <= (others => '0');
---			g <= (others => '0');
---			b <= (others => '0');
---		elsif rising_edge(clk) then
---			if unsigned(x) = 1 or unsigned(x) = 640 or unsigned(y) = 1 or unsigned(y) =480 then
---				r <= (others => '1');
---				g <= (others => '0');
---				b <= (others => '0');
---			else
---				r <= (others => '0');
---				g <= (others => '1');
---				b <= (others => '0');
---			end if;
---		end if;
---	end process;
-
---	process(x,y)
---	begin
---		if unsigned(x) = 0 or unsigned(x) = 639 or unsigned(y) = 0 or unsigned(y) =479 then
---			r <= (others => '1');
---			g <= (others => '0');
---			b <= (others => '0');
---		else
---			r <= (others => '0');
---			g <= (others => '1');
---			b <= (others => '0');
---		end if;
---	end process;
-
 ------------- Begin Cut here for INSTANTIATION Template ----- INST_TAG
   your_instance_name : ram
     port map (
@@ -164,49 +132,6 @@ begin
       end if;
     end if;
   end process;
-  
-  -- Process writing in memory
---TEST 	process(clk,rst)
---TEST 		constant x_max : positive := 639;
---TEST 		constant y_max : positive := 479;
---TEST 		variable x_write : natural range 0 to x_max := 0;
---TEST 		variable y_write : natural range 0 to y_max := 0;
---TEST 		variable addr : natural range 0 to 307199 := 0;
---TEST 	begin
---TEST 		if rst = '1' then
---TEST 			write_enable <= (others => '0');
---TEST 			write_addr <= (others => '0');
---TEST 			data_in <= (others => '0');		
---TEST 		elsif rising_edge(clk) then
---TEST 			if std_logic_vector(to_unsigned(x_write,4)) = "0000" or std_logic_vector(to_unsigned(y_write,4)) = "0000" then
---TEST 				write_enable <= (others => '1');
---TEST 				write_addr <= std_logic_vector(to_unsigned(addr,19));
---TEST 				data_in <= (others => '1');
---TEST 			else
---TEST 				write_enable <= (others => '0');
---TEST 				write_addr <= (others => '0');
---TEST 				data_in <= (others => '0');
---TEST 			end if;
---TEST 
---TEST 			-- Address management 
---TEST 			if addr /= 307199 then
---TEST 				addr := addr + 1;
---TEST 			else
---TEST 				addr := 0;
---TEST 			end if; -- addr max
---TEST 			-- Coordinate management
---TEST 			if x_write /= x_max then
---TEST 				x_write := x_write + 1;
---TEST 			else --xmax
---TEST 				x_write := 0;
---TEST 				if y_write /= y_max then
---TEST 					y_write := y_write + 1;
---TEST 				else
---TEST 					y_write := 0;
---TEST 				end if;	--ymax
---TEST 			end if; -- xmax
---TEST 		end if;-- clock rising edge
---TEST 	end process;
   
   s_write_enable <= (others => write_enable);
   s_data_in <= (others => data_in);
